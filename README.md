@@ -1,7 +1,6 @@
 # hydrajs-testing-helper
+
 Is a testing extension helper that add some helper methods to make easy test all Hydra modules.
-## Requirements
-You will need to load it after the import of Hydra.js in your code.
 
 ## Install
 
@@ -34,7 +33,7 @@ Insert in your code:
 
 ### Common usage
 
-hydrajs-testing-helper add some methods to Hydra.js library.
+hydrajs-testing-helper extends Hydra.js library adding new methods.
 
 ## Hydra.setTestFramework
 
