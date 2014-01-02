@@ -40,19 +40,19 @@ Insert in your code:
 
 hydrajs-testing-helper extends Hydra.js library adding new methods.
 
-## Hydra.setTestFramework
+#### Hydra.setTestFramework
 
 *This method is needed to set which test framework we will use. If the test framework is not set the other methods will not work.*
 
 	Hydra.setTestFramework( oTestFramework );
 
-## Hydra.module.getModule
+#### Hydra.module.getModule
 
 This method returns a instance of the module is useful to use it when you want a module to be accessible in your tests.
 
 	Hydra.module.getModule( sModuleId, sIdInstance );
 
-## Hydra.module.test
+#### Hydra.module.test
 
 This method returns a module that will not wrap any method allowing you to test it and get the errors.
 
