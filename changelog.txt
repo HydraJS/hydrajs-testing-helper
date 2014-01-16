@@ -1,2 +1,8 @@
+1.2.0
+    Improve dependency injection
+1.1.1
+    Improve dependency injection
+1.1.0
+    Improve dependency injection, now the dependencies are managed automatically.
 1.0.0
     First revision

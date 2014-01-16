@@ -2,11 +2,12 @@
 
 Is a testing extension helper that add some helper methods to make easy test all Hydra modules.
 
-## Updated to version 1.0.0
+## Updated to version 1.2.0
 
 [![Build Status](https://travis-ci.org/HydraJS/hydrajs-testing-helper.png)](https://travis-ci.org/HydraJS/hydrajs-testing-helper)
 
 [Changelog](https://raw.github.com/HydraJS/hydrajs-testing-helper/master/changelog.txt)
+
 ## Install
 
 Install with [Bower](http://bower.io)
@@ -32,9 +33,10 @@ Insert in your html code:
 
 Insert in your code:
 
-    define(['hydrajs-testing-helper'], function ( testingHelper ) {
+    define(['hydrajs-testing-helper'], function () {
         // code here.
     });
+
 
 ### Common usage
 
