@@ -138,6 +138,7 @@
           return null;
         }
       } );
+      return Hydra;
     };
 
   if ( typeof define !== 'undefined' )

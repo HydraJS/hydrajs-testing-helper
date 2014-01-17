@@ -2,7 +2,7 @@
 
 Is a testing extension helper that add some helper methods to make easy test all Hydra modules.
 
-## Updated to version 1.2.0
+## Updated to version 1.3.0
 
 [![Build Status](https://travis-ci.org/HydraJS/hydrajs-testing-helper.png)](https://travis-ci.org/HydraJS/hydrajs-testing-helper)
 
