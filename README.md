@@ -2,7 +2,7 @@
 
 Is a testing extension helper that add some helper methods to make easy test all Hydra modules.
 
-## Updated to version 1.3.0
+## Updated to version 1.3.1
 
 [![Build Status](https://travis-ci.org/HydraJS/hydrajs-testing-helper.png)](https://travis-ci.org/HydraJS/hydrajs-testing-helper)
 
@@ -58,20 +58,39 @@ This method returns a instance of the module is useful to use it when you want a
 
 This method returns a module that will not wrap any method allowing you to test it and get the errors.
 
-	Hydra.module.test( sModuleId, function (oModule) {
-		//Here you will have the not wrapped module to be used in your test
-	});
-
-If you need to manage dependencies in a module you can use Hydra.module.test in this way:
-
-    var oModule = Hydra.module.test( sModuleId, [ dependency1, dependency2 ]);
-
-TIP: You could set a variable where save the oModule in this way.
+*With callback:*
 
 	var oModule = null;
 	Hydra.module.test( 'moduleId', function(oMod) {
 		oModule = oMod;
 	});
+
+*Without callback:*
+
+	var oModule = Hydra.module.test( 'moduleId' );
+
+This method allow you to mock all your dependencies defined when the module is registered:
+##### How to mock dependencies
+
+*Automatic:*
+
+	var oModule = Hydra.module.test( sModuleId );
+
+Using only the id of the module, the method will check for the dependencies defined when the module was registered and it will resolve them but returning the objects after being mocked.
+
+*Using an array:*
+
+	var oModule = Hydra.module.test( sModuleId, [ dependency1, dependency2 ]);
+
+You should add an array with the mocked objects in the same order that were defined when the module was registered.
+
+*Using an object:*
+
+	var oModule = Hydra.module.test( sModuleId, { dep1: dependency1, dep2: dependency2 });
+
+You should add an object with the mocked objects and the keys should be the same that were defined when the module was registered.
+
+
 
 ## API
 ### Hydra
@@ -80,7 +99,7 @@ This method expects an object [Jasmine, jstestdriver...]
 
 ### Hydra.module
 #### getModule - Params [String - identifier of Module, String - identifier of Instance]
-#### test - Params [String - identifier of Module, [Function or Array]]
+#### test - Params [String - identifier of Module, [Function, Object or Array]]
 
 *Tip: You can see how it can be used in the [Hydra's test file](https://github.com/HydraJS/HydraJS/blob/master/test/Hydra.js)*
 
