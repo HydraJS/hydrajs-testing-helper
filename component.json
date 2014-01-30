@@ -1,8 +1,8 @@
 {
-  "name": "hydrajs-testing-helper",
-  "repo": "HydraJS/hydrajs-testing-helper",
-  "description": "Hydra.js testing helper tools to improve testability of modules.",
-  "version": "1.3.1",
-  "scripts": ["versions/hydrajs-testing-helper.min.js"],
-  "main": "versions/hydrajs-testing-helper.min.js"
+	"name": "hydrajs-testing-helper",
+	"repo": "HydraJS/hydrajs-testing-helper.git",
+	"description": "Hydra.js testing helper tools to improve testability of modules.",
+	"version": "1.4.0",
+	"scripts": ["versions/hydrajs-testing-helper.min.js"],
+	"main": "versions/hydrajs-testing-helper.min.js"
 }

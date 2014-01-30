@@ -7,7 +7,10 @@ module.exports = function (grunt) {
       } catch (e) {}
       return data;
     },
-    srcHintOptions = readOptionalJSON('.jshintrc');
+    srcHintOptions = readOptionalJSON('.jshintrc'),
+    fs = require('fs'),
+    swig = require('swig');
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -83,7 +86,65 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
+  grunt.registerTask('readme', 'Creates a README.md from template', function () {
+    var done = this.async(),
+    oREADMETemplate = swig.compileFile('templates/README.tpl');
+    fs.stat('versions/hydrajs-testing-helper.min.js.gz', function (err, stats) {
+      fs.writeFile('README.md', oREADMETemplate({
+        version: grunt.file.readJSON('package.json').version,
+        size: (stats.size / 1024).toFixed(2),
+        description: grunt.file.readJSON('package.json').description,
+        repository_type: grunt.file.readJSON('package.json').repository.type,
+        repository_url: grunt.file.readJSON('package.json').repository.url.replace('https', 'git'),
+        repository_shorten: grunt.file.readJSON('package.json').repository.url.replace('https://github.com/', '')
+      }), function (err) {
+        if (err) {
+          throw err;
+        }
+        done();
+      });
+    });
+  });
+  grunt.registerTask('bower', 'Creates a bower.json from template', function () {
+    var done = this.async(),
+    oBowerTemplate = swig.compileFile('templates/bower.tpl');
+    fs.stat('versions/hydrajs-testing-helper.min.js.gz', function (err, stats) {
+      fs.writeFile('bower.json', oBowerTemplate({
+        version: grunt.file.readJSON('package.json').version,
+        size: (stats.size / 1024).toFixed(2),
+        description: grunt.file.readJSON('package.json').description,
+        repository_type: grunt.file.readJSON('package.json').repository.type,
+        repository_url: grunt.file.readJSON('package.json').repository.url.replace('https', 'git'),
+        repository_shorten: grunt.file.readJSON('package.json').repository.url.replace('https://github.com/', '')
+      }), function (err) {
+        if (err) {
+          throw err;
+        }
+        done();
+      });
+    });
+  });
+  grunt.registerTask('component', 'Creates a component.json from template', function () {
+    var done = this.async(),
+    oComponentTemplate = swig.compileFile('templates/component.tpl');
+    fs.stat('versions/hydrajs-testing-helper.min.js.gz', function (err, stats) {
+      fs.writeFile('component.json', oComponentTemplate({
+        version: grunt.file.readJSON('package.json').version,
+        size: (stats.size / 1024).toFixed(2),
+        description: grunt.file.readJSON('package.json').description,
+        repository_type: grunt.file.readJSON('package.json').repository.type,
+        repository_url: grunt.file.readJSON('package.json').repository.url.replace('https', 'git'),
+        repository_shorten: grunt.file.readJSON('package.json').repository.url.replace('https://github.com/', '')
+      }), function (err) {
+        if (err) {
+          throw err;
+        }
+        done();
+      });
+    });
+  });
+
   // Default task(s).
-  grunt.registerTask('default', ['jshint', 'karma', 'uglify', 'compress', 'copy']);
+  grunt.registerTask('default', ['jshint', 'karma', 'uglify', 'compress', 'copy', 'readme', 'bower', 'component']);
 
 };

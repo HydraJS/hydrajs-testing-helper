@@ -66,7 +66,6 @@ describe( 'Hydra module test', function () {
       };
     };
   beforeEach( function () {
-    var self = this;
     Hydra.setTestFramework( jasmine );
     Hydra.module.register( sModuleId, fpModuleCreator );
   } );
@@ -77,16 +76,17 @@ describe( 'Hydra module test', function () {
   } );
 
   it( 'should call the callback', function () {
-    Hydra.module.test( sModuleId, fpCallback );
-
-    expect( fpCallback.callCount ).toEqual( 1 );
+    Hydra.module.test( sModuleId, fpCallback, function () {
+      expect( fpCallback.callCount ).toEqual( 1 );
+    } );
   } );
 
   it( 'should return the module if test does not get a callback', function () {
-    var oModule = Hydra.module.test( sModuleId );
+    Hydra.module.test( sModuleId, undefined, function ( oModule ) {
+      expect( oModule.init ).toBeDefined();
+      expect( typeof oModule.init ).toEqual( 'function' );
+    } );
 
-    expect( oModule.init ).toBeDefined();
-    expect( typeof oModule.init ).toEqual( 'function' );
   } );
 
 } );

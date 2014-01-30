@@ -4,7 +4,8 @@
   var oMockLibrary = null,
   oAdapter = null,
   toString = Object.prototype.toString,
-  isTypeOf = function ( oObj, sConstructor ) {
+  isTypeOf = function ( oObj, sConstructor )
+  {
     return toString.call( oObj ) === '[object ' + sConstructor + ']';
   },
   convertArrayMappingToObject = function ( aKeys, aValues )
@@ -29,19 +30,22 @@
     {
       var aCloneMapping, sMap, aDeps = [];
 
-      if(!oDeps || !isTypeOf(aMapping, 'Array')){
+      if ( !oDeps || !isTypeOf( aMapping, 'Array' ) )
+      {
         return aDeps;
       }
 
       aCloneMapping = aMapping.concat();
 
-      while( !!( sMap = aCloneMapping.shift() ) ){
+      while ( !!( sMap = aCloneMapping.shift() ) )
+      {
         aDeps.push( oDeps[sMap] );
       }
       return aDeps;
     },
     fpMockDependencies = function ( aDependencies )
     {
+
       var oDependency,
       nIndexDependency,
       nLenDependencies = aDependencies.length,
@@ -86,7 +90,7 @@
       {
         if ( !oMockLib )
         {
-          throw new Error( 'The mock library is not valid!');
+          throw new Error( 'The mock library is not valid!' );
         }
         if ( typeof oAdapt.getAllFunctionsStubbed !== 'function' )
         {
@@ -124,38 +128,47 @@
        * @member Hydra.module
        * @param {String} sModuleId
        * @param {*} oDeps - Could be a function that gets the module as single argument or an array of dependencies to mock
+       * @param {Function} Callback to get the module after being mocked all its dependencies.
        */
-      test: function ( sModuleId, oDeps )
+      test: function ( sModuleId, oDeps, fpCallback )
       {
         var oModule, oDependencies, aMocked, aMapping;
         if ( oTestFramework )
         {
+
           try
           {
             Hydra.setDebug( true );
-
             oDependencies = Hydra.resolveDependencies( sModuleId );
-            aMapping = oDependencies.mapping;
-
-            if(isTypeOf(oDeps, 'Object')){
-              aMocked = fpConvertObjectToDependenciesArray( oDeps, aMapping );
-            }else if(isTypeOf(oDeps, 'Array')){
-              aMocked = oDeps;
-            }else{
-              aMocked = fpMockDependencies( oDependencies.dependencies );
-            }
-
-            oModule = Hydra.module.getInstance( sModuleId, aMocked );
-            oModule.mocks = convertArrayMappingToObject( aMapping, aMocked );
-
-            if ( typeof oDeps === 'function' )
+            oDependencies.then( function ( mapping )
             {
-              oDeps( oModule );
-            }
-            else
-            {
-              return oModule;
-            }
+              aMapping = mapping;
+
+              if ( isTypeOf( oDeps, 'Object' ) )
+              {
+                aMocked = fpConvertObjectToDependenciesArray( oDeps, mapping );
+              }
+              else if ( isTypeOf( oDeps, 'Array' ) )
+              {
+                aMocked = oDeps;
+              }
+              else
+              {
+                aMocked = fpMockDependencies( [].slice.call(arguments, 1) );
+              }
+
+
+              Hydra.module.getInstance( sModuleId, aMocked, function ( oModule ) {
+
+                oModule.mocks = convertArrayMappingToObject( mapping, aMocked );
+                if ( typeof oDeps === 'function' )
+                {
+                  oDeps( oModule );
+                }else{
+                  fpCallback(oModule);
+                }
+              });
+            } );
           }
           finally
           {
