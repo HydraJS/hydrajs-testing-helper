@@ -1,3 +1,5 @@
+1.4.1
+    Fix getModule bug to use promises.
 1.4.0
 	Make use of Promises workflow added in Hydra 3.9.0
 1.3.1

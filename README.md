@@ -2,7 +2,7 @@
 
 Is a testing extension helper that add some helper methods to make easy test all Hydra modules.
 
-## Updated to version 1.4.0
+## Updated to version 1.4.1
 
 [![Build Status](https://travis-ci.org/HydraJS/hydrajs-testing-helper.png)](https://travis-ci.org/HydraJS/hydrajs-testing-helper)
 
@@ -52,7 +52,9 @@ Hydra.setTestFramework( oTestFramework );
 
 This method returns a instance of the module is useful to use it when you want a module to be accessible in your tests.
 
-Hydra.module.getModule( sModuleId, sIdInstance );
+Hydra.module.getModule( sModuleId, sIdInstance, function( oMod ) {
+    oModule = oMod;
+});
 
 #### Hydra.module.test
 

@@ -52,7 +52,9 @@ Hydra.setTestFramework( oTestFramework );
 
 This method returns a instance of the module is useful to use it when you want a module to be accessible in your tests.
 
-Hydra.module.getModule( sModuleId, sIdInstance );
+Hydra.module.getModule( sModuleId, sIdInstance, function( oMod ) {
+    oModule = oMod;
+});
 
 #### Hydra.module.test
 

@@ -13,43 +13,45 @@ describe( 'Hydra setTestFramework', function () {
 describe( 'Hydra getModule', function () {
 
   beforeEach( function () {
-    sinon.stub( Hydra.module, 'getInstance' );
   } );
 
   afterEach( function () {
-    Hydra.module.getInstance.restore();
     Hydra.setTestFramework(null);
   } );
 
   it( 'should throw an error if the module to get the instance has not been registered', function () {
     expect( function () {
       Hydra.setTestFramework( jasmine );
-
-      Hydra.module.getModule( 'test', 'test2' );
+      Hydra.module.getModule( 'test', 'test2', function ( oModule ) {});
     } ).toThrow();
   } );
 
+
   it( 'should check that Hydra.module.getInstance is called if the framework of test has been set', function () {
-    Hydra.setTestFramework( jasmine );
-
-    Hydra.module.register( 'test', function () {
-      return {};
-    } );
-
-    Hydra.module.getModule( 'test', 'test2' );
-
-    expect( Hydra.module.getInstance.callCount ).toEqual( 1 );
-  } );
-
-  it( 'should check that Hydra.module.getInstance is not called if the framework of test has not been set', function () {
-    Hydra.module.register('test', function(action)
-    {
-      return {};
+    var oMod, oStub = sinon.stub(), flag = false;
+    runs( function () {
+      Hydra.setTestFramework( jasmine );
+      Hydra.module.register( 'test', function () {
+        return {
+          init: function () {
+            oStub();
+          }
+        };
+      } );
     });
 
-    Hydra.module.getModule( 'test', 'test2' );
+    waitsFor( function () {
+      Hydra.module.getModule( 'test', 'test2', function ( oModule ) {
+        flag = true;
+        oMod = oModule;
+      } );
+      return flag;
+    }, 'It is waiting to resolve the module', 1000);
 
-    expect( Hydra.module.getInstance.callCount ).toEqual( 0 );
+    runs( function () {
+      oMod.init();
+      expect( oStub.callCount ).toEqual( 1 );
+    });
   } );
 } );
 

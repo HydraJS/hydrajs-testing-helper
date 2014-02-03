@@ -23,6 +23,7 @@
     "jQuery": true,
     "define": true,
     "module": true,
-    "Event": true
+    "Event": true,
+    "require": true
   }
 }
