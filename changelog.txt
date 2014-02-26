@@ -1,16 +1,18 @@
+1.5.0
+	Add new methods to mock the dependencies when the module is extended or decorated
 1.4.1
-    Fix getModule bug to use promises.
+	Fix getModule bug to use promises.
 1.4.0
 	Make use of Promises workflow added in Hydra 3.9.0
 1.3.1
 	Allow set dependencies using objects with keys to add more readability.
 1.3.0
-    Return Hydra
+	Return Hydra
 1.2.0
-    Improve dependency injection
+	Improve dependency injection
 1.1.1
-    Improve dependency injection
+	Improve dependency injection
 1.1.0
-    Improve dependency injection, now the dependencies are managed automatically.
+	Improve dependency injection, now the dependencies are managed automatically.
 1.0.0
-    First revision
+	First revision
