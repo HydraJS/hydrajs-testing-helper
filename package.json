@@ -1,7 +1,7 @@
 {
   "name": "hydrajs-testing-helper",
   "description": "Hydra.js testing helper tools to improve testability of modules.",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "author": "Tomas Corral",
   "main": "./src/hydrajs-testing-helper.js",
   "keywords": [

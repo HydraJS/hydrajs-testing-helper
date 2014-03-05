@@ -2,7 +2,7 @@
 
 Is a testing extension helper that add some helper methods to make easy test all Hydra modules.
 
-## Updated to version 1.5.0
+## Updated to version 1.5.1
 
 [![Build Status](https://travis-ci.org/HydraJS/hydrajs-testing-helper.png)](https://travis-ci.org/HydraJS/hydrajs-testing-helper)
 
@@ -12,31 +12,30 @@ Is a testing extension helper that add some helper methods to make easy test all
 
 Install with [Bower](http://bower.io)
 
-bower install hydrajs-testing-helper
+	bower install hydrajs-testing-helper
 
 Install with [Component](http://component.io)
 
-component install hydrajs-testing-helper
+	component install hydrajs-testing-helper
 
 Install with [NPM](http://npmjs.org)
 
-npm install hydrajs-testing-helper
+	npm install hydrajs-testing-helper
 
 ### Use in browser
 
 Insert in your html code:
 
-<script type="text/javascript" src="hydra.js"></script
-<script type="text/javascript" src="hydrajs-testing-helper.js"></script>
+	<script type="text/javascript" src="hydra.js"></script
+	<script type="text/javascript" src="hydrajs-testing-helper.js"></script>
 
 ### Use with requirejs
 
 Insert in your code:
 
-define(['hydrajs-testing-helper'], function () {
-// code here.
-});
-
+	define(['hydrajs-testing-helper'], function () {
+	// code here.
+	});
 
 ### Common usage
 
@@ -46,15 +45,33 @@ hydrajs-testing-helper extends Hydra.js library adding new methods.
 
 *This method is needed to set which test framework we will use. If the test framework is not set the other methods will not work.*
 
-Hydra.setTestFramework( oTestFramework );
+	Hydra.setTestFramework( oTestFramework );
 
 #### Hydra.module.getModule
 
 This method returns a instance of the module is useful to use it when you want a module to be accessible in your tests.
 
-Hydra.module.getModule( sModuleId, sIdInstance, function( oMod ) {
-    oModule = oMod;
-});
+	Hydra.module.getModule( sModuleId, sIdInstance, function( oMod ) {
+		oModule = oMod;
+	});
+
+#### Hydra.module.decorate
+
+This method wrap the original decorate method of Hydra to resolve the dependencies in decorated modules.
+
+	// aDependencies is optional
+	Hydra.module.decorate( sBaseModuleId, sExtendedModuleId, aDependencies, function() {
+		// Your module code here.
+	});
+
+#### Hydra.module.extend
+
+This method wrap the original extend method of Hydra to resolve the dependencies in extended modules.
+
+	// aDependencies is optional
+	Hydra.module.decorate( sBaseModuleId, sExtendedModuleId, aDependencies, function() {
+		// Your module code here.
+	});
 
 #### Hydra.module.test
 
@@ -62,10 +79,10 @@ This method returns a module that will not wrap any method allowing you to test 
 
 *With callback:*
 
-var oModule = null;
-Hydra.module.test( 'moduleId', function(oMod) {
-oModule = oMod;
-});
+	var oModule = null;
+	Hydra.module.test( 'moduleId', function(oMod) {
+		oModule = oMod;
+	});
 
 *Without callback:*
 
@@ -76,7 +93,7 @@ This method allow you to mock all your dependencies defined when the module is r
 
 *Automatic:*
 
-var oModule = Hydra.module.test( sModuleId );
+	var oModule = Hydra.module.test( sModuleId );
 
 Using only the id of the module, the method will check for the dependencies defined when the module was registered and it will resolve them but returning the objects after being mocked.
 
@@ -88,11 +105,9 @@ You should add an array with the mocked objects in the same order that were defi
 
 *Using an object:*
 
-var oModule = Hydra.module.test( sModuleId, { dep1: dependency1, dep2: dependency2 });
+	var oModule = Hydra.module.test( sModuleId, { dep1: dependency1, dep2: dependency2 });
 
 You should add an object with the mocked objects and the keys should be the same that were defined when the module was registered.
-
-
 
 ## API
 ### Hydra
@@ -101,6 +116,8 @@ This method expects an object [Jasmine, jstestdriver...]
 
 ### Hydra.module
 #### getModule - Params [String - identifier of Module, String - identifier of Instance]
+#### decorate - Params [String - identifier of Base Module, String - identifier of Decorated module, [Function or Array]
+#### extend - Params [String - identifier of Base Module, String - identifier of Decorated module, [Function or Array]
 #### test - Params [String - identifier of Module, [Function, Object or Array]]
 
 *Tip: You can see how it can be used in the [Hydra's test file](https://github.com/HydraJS/HydraJS/blob/master/test/Hydra.js)*
