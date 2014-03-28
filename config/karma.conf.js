@@ -8,7 +8,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/sinon/pkg/sinon-1.7.3.js',
-      'node_modules/hydra.js/src/Hydra.js',
+      'node_modules/hydra.js/versions/hydra.js',
       'src/hydrajs-testing-helper.js',
       'specs/hydrajs-testing-helperSpec.js'
     ],

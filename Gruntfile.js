@@ -145,6 +145,6 @@ module.exports = function (grunt) {
   });
 
   // Default task(s).
-  grunt.registerTask('default', ['jshint', 'karma', 'uglify', 'compress', 'copy', 'readme', 'bower', 'component']);
+  grunt.registerTask('default', ['jshint', 'uglify', 'compress', 'copy', 'readme', 'bower', 'component', 'karma']);
 
 };

@@ -1,3 +1,5 @@
+1.5.2
+	Add parent module to be mocked when it's extended.
 1.5.1
 	Fix templates indentation
 	Update documentation and Readme.md

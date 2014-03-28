@@ -37,19 +37,16 @@
       return aDeps;
     },
     fpMockDependencies = function (aDependencies) {
-
       var oDependency,
       nIndexDependency,
       nLenDependencies = aDependencies.length,
       aMocks = [];
-
       if (oAdapter != null && oMockLibrary !== null) {
         for (nIndexDependency = 0; nIndexDependency < nLenDependencies; nIndexDependency++) {
           oDependency = aDependencies[nIndexDependency];
           aMocks.push(oAdapter.getAllFunctionsStubbed(oDependency));
         }
       }
-
       return aMocks;
     };
 
@@ -136,19 +133,25 @@
        * @returns {*}
        */
       extend: function (sBaseModule, sModuleDecorated, aDependencies, fpDecorator) {
-        var aMocked, oDependencies, oPromise;
+        var aMocked, oDependencies, oPromise, aBasicDependencies =[ '$$_bus', '$$_module', '$$_log', 'gl_Hydra' ];
         oPromise = new Hydra.Promise(function (resolve) {
           if (typeof sModuleDecorated === 'function') {
             fpDecorator = sModuleDecorated;
+            aDependencies = aBasicDependencies;
           }
           if (typeof aDependencies === 'function') {
             fpDecorator = aDependencies;
+            aDependencies = aBasicDependencies;
           }
-          oDependencies = Hydra.resolveDependencies(sModuleDecorated, aDependencies);
-          oDependencies.then(function () {
-            aMocked = fpMockDependencies([].slice.call(arguments, 1));
-            oBackUpExtend(sBaseModule, sModuleDecorated, aMocked, fpDecorator).then(function (oModuleDecorated) {
-              resolve(oModuleDecorated);
+          Hydra.module.getInstance(sBaseModule, aDependencies, function ( oInstance ) {
+            aDependencies.push(oInstance);
+            oInstance.__type__ = 'parent';
+            oDependencies = Hydra.resolveDependencies(sModuleDecorated, aDependencies);
+            oDependencies.then(function () {
+              aMocked = fpMockDependencies([].slice.call(arguments, 1));
+              oBackUpExtend(sBaseModule, sModuleDecorated, aMocked, fpDecorator).then(function (oModuleDecorated) {
+                resolve(oModuleDecorated);
+              });
             });
           });
         });

@@ -9,7 +9,7 @@ requirejs.config({
   baseUrl: '/base/src',
 
   paths: {
-    'hydra': '../node_modules/hydra.js/src/Hydra'
+    'hydra': '../node_modules/hydra.js/versions/hydra'
   },
   // ask Require.js to load these files (all our tests)
   deps: tests,
