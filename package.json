@@ -52,8 +52,7 @@
     "karma-script-launcher": "^0.1.0",
     "sinon": "~1.7.3",
     "uglify-js": "2.4.24",
-    "swig": "~1.2.2",
-    "zlib": "1.0.5"
+    "swig": "~1.2.2"
   },
   "github": "https://github.com/HydraJS/hydrajs-testing-helper"
 }
