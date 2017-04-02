@@ -28,30 +28,21 @@ describe( 'Hydra getModule', function () {
 
 
   it( 'should check that Hydra.module.getInstance is called if the framework of test has been set', function () {
-    var oMod, oStub = sinon.stub(), flag = false;
-    runs( function () {
-      Hydra.setTestFramework( jasmine );
-      Hydra.module.register( 'test', function () {
-        return {
-          init: function () {
-            oStub();
-          }
-        };
-      } );
-    });
+    var oMod, oStub = sinon.stub();
+    Hydra.setTestFramework( jasmine );
+    Hydra.module.register( 'test', function () {
+      return {
+        init: function () {
+          oStub();
+        }
+      };
+    } );
 
-    waitsFor( function () {
-      Hydra.module.getModule( 'test', 'test2', function ( oModule ) {
-        flag = true;
-        oMod = oModule;
-      } );
-      return flag;
-    }, 'It is waiting to resolve the module', 1000);
-
-    runs( function () {
+    Hydra.module.getModule( 'test', 'test2', function ( oModule ) {
+      oMod = oModule;
       oMod.init();
       expect( oStub.callCount ).toEqual( 1 );
-    });
+    } );
   } );
 } );
 
